@@ -4,21 +4,18 @@ YAMQTT is an easy to build and integrate C++ client MQTT library. It is designed
 
 ### Project Background
 
-The YA in YAMQTT is from the hisotical 'Yet Another' acronym and came about after several attempts were made to integrate existing MQTT library code into an IOT project. Each offering looked like it could work but in every case it either had large external dependances that could be platform specific or it had significant limitations dictated by the target operating system. Having spent several days on failed integrations it seemed that a new approach was required.
+The YA in YAMQTT is from the historical 'Yet Another' acronym and came about after several attempts were made to integrate existing MQTT library code into an IOT project. Each offering looked like it could work but in every case it either had large external dependances that could be platform specific or it had significant limitations dictated by the target operating system. Having spent several days on failed integrations it seemed that a new approach was required.
 
 ### Usage Example
 
 As an example of how YAMQTT works, all that is needed to initialise it is a supporting serial interface (usually a wired or wireless TCP/IP socket) and a call to connect to the broker. Once this is done the 'engine' is running and it takes care of all connection/disconnection/ping and keep alive responsibilities.
 
 ```C++
-// Socket object is a wrapper around any OS INET API (Linux in this case) 
 SocketObject clientSocket;
 
-// Open an IP4 connection to localhost for testing (Mosquitto in this case) 
 clientSocket.Open ("127.0.0.1", 1883);
 YAMQTTClient mqttClient (clientSocket);
 
-// Connect to broker with a given name, use a clean connection, 10 second ping but don't wait for connection to be established (non-blocking)
 mqttClient.Connect ("MyConnection", true, 10, false);
 ```
 
@@ -52,3 +49,4 @@ void MyApp::MQTTSubscriptionUpdate (const std::shared_ptr<MQTTSubscription>& sub
 ```
 
 The above function is called whenever an update is received to a subscribed topic. The subscription object provides information about the topic and message along with the unique ID used when the subscription was created. This allows the application to quickly switch on the unique ID especially in cases where wildcards have not been used.
+
