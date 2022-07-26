@@ -25,16 +25,6 @@ mqttClient.Connect ("MyConnection", true, 10, false);
 
 The SocketObject class in this case wraps up the Linux OS INET API. As a minimum the call to Open requires just a source such as an IP address and the MQTT port. Once this is called the YAMQTT client is instantiated and the connection is made. All the connection needs is a name and a clean session flag. The final optional parameters are the time in seconds for pings to be issued to keep a connection alive and whether or not the call should block until the connection is established. Following this client methods can be invoked right away even before the connection to the broker is established.
 
-### Subscription
-
-In order to be notified about changes from the broker one of more subscriptions can be registered using standard MQTT filtering and wildcards.
-
-```C++
-mqttClient.Subscribe (std::make_shared<MQTTSubscription> ("Storage/#", 123, MQTTMessage::QualityOfService::AtLeastOnce));
-```
-
-In the above example the client method call creates a subscription to all topics under the top level 'Storage' topic using an application unique ID of 123. The unique ID is used to help identify the subscription information received when published updates arrive. Finally, the subscription Quality of Service value is specified which can affect the reliability of updates sent from the broker depending on the published QoS.
-
 ### Publish
 
 In order to send messages to the broker they need to be published to the broker. This is achieved asynchronously through the publish method.
@@ -44,6 +34,18 @@ m_mqttClient.Publish ("Energy/TotalImport", "225", MQTTMessage::QualityOfService
 ```
 
 In the above example a publish message is queued up and sent to the broker for the given topic using the quality of service requested. All retires, reconnection attempts and protocol negotiations for different quality of service levels are handled internally.
+
+### Subscribe
+
+In order to be notified about changes from the broker one of more subscriptions can be registered using standard MQTT filtering and wildcards.
+
+```C++
+mqttClient.Subscribe (std::make_shared<MQTTSubscription> ("Storage/#", 123, MQTTMessage::QualityOfService::AtLeastOnce));
+```
+
+In the above example the client method call creates a subscription to all topics under the top level 'Storage' topic using an application unique ID of 123. The unique ID is used to help identify the subscription information received when published updates arrive. Finally, the subscription Quality of Service value is specified which can affect the reliability of updates sent from the broker depending on the published QoS.
+
+
 
 ### Callbacks
 
