@@ -57,3 +57,12 @@ void MyApp::MQTTSubscriptionUpdate (const std::shared_ptr<MQTTSubscription>& sub
 ```
 
 In the above example the function is called whenever an update is received to a subscribed topic. The subscription object parameter provides information about the topic and message along with the unique ID registered when the subscription was created. This allows the application to quickly match the subscriptions in cases where wildcards have been used and immediately match updates with no further decoding if wildcards have not been used.
+
+### Roadmap
+
+Currently this implementation supports MQTT 3.1.1. A newer release will also support 5.0 and be backward compatible.
+
+The code has been passed through Clang Tidy with all filters applied and tested extensively using Mosquito, MQTT Explorer and Home Assistant there are no unit tests.  A future release will add Catch2 to support regression testing.
+
+Currently this implementation supports native Linux. A newer release will also support Windows and FreeRTOS.
+
